@@ -4,20 +4,19 @@ CHANGE_LETTERS = {
     'ci': 'fi', 'ce': 'fe', 'CI': 'FI', 'CE': 'FE', 'Ci': 'Fi', 'Ce': 'Fe'
     }
 
-text = input()
+def translate(text):
+    for letter in CHANGE_LETTERS:
+        text = text.replace(letter, CHANGE_LETTERS[letter])
+    flag = False
+    new_text = ''
+    for i in range(len(text)):
+        if((text[i] == 'F' or text[i] == 'f') and flag == False):
+            flag = True
+        elif((text[i] == 'F' or text[i] == 'f') and flag == True):
+            continue
+        else:
+            flag = False
 
-for letter in CHANGE_LETTERS:
-    text = text.replace(letter, CHANGE_LETTERS[letter])
-flag = False
-new_text = ""
-for i in range(len(text)):
-    if((text[i] == 'F' or text[i] == 'f') and flag == False):
-        flag = True
-    elif((text[i] == 'F' or text[i] == 'f') and flag == True):
-        continue
-    else:
-        flag = False
+        new_text += text[i]
 
-    new_text += text[i]
-
-print(new_text)
+    return new_text
