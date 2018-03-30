@@ -4,19 +4,21 @@ CHANGE_LETTERS = {
     'ci': 'fi', 'ce': 'fe', 'CI': 'FI', 'CE': 'FE', 'Ci': 'Fi', 'Ce': 'Fe'
     }
 
-def translate(text):
+def translate(text, remove_repeated=True):
     for letter in CHANGE_LETTERS:
         text = text.replace(letter, CHANGE_LETTERS[letter])
-    flag = False
-    new_text = ''
-    for i in range(len(text)):
-        if((text[i] == 'F' or text[i] == 'f') and flag == False):
-            flag = True
-        elif((text[i] == 'F' or text[i] == 'f') and flag == True):
-            continue
-        else:
-            flag = False
+    if remove_repeated:
+        flag = False
+        new_text = ''
+        for i in range(len(text)):
+            if (text[i] == 'F' or text[i] == 'f') and flag == False:
+                flag = True
+            elif (text[i] == 'F' or text[i] == 'f') and flag == True:
+                continue
+            else:
+                flag = False
 
-        new_text += text[i]
+            new_text += text[i]
 
-    return new_text
+        return new_text
+    return text
