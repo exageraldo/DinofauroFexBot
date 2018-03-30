@@ -1,5 +1,10 @@
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.utils.helpers import escape_markdown
+from telegram.ext import Updater, CommandHandler, MessageHandler, \
+    Filters, CallbackQueryHandler, InlineQueryHandler
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, \
+    InlineQueryResultArticle, ParseMode, InputTextMessageContent
+from uuid import uuid4
+
 import logging
 
 from .translate import translate
@@ -48,6 +53,25 @@ def button(bot, update):
                           message_id=query.message.message_id,
                           reply_markup=update_keyboard(message))
 
+
+def inlinequery(bot, update):
+    """Handle the inline query."""
+    query = update.inline_query.query
+    results = [
+        InlineQueryResultArticle(
+            id=uuid4(),
+            title="1F",
+            input_message_content=InputTextMessageContent(
+                translate(query, remove=True))),
+        InlineQueryResultArticle(
+            id=uuid4(),
+            title=f"+F",
+            input_message_content=InputTextMessageContent(
+                translate(query, remove=False)))]
+
+    update.inline_query.answer(results)
+
+
 def error(bot, update, error):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, error)
@@ -62,7 +86,10 @@ def run_bot():
     dp.add_handler(CommandHandler("translate", translation))
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help))
+
     dp.add_handler(CallbackQueryHandler(button))
+
+    dp.add_handler(InlineQueryHandler(inlinequery))
 
     dp.add_error_handler(error)
 
