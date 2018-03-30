@@ -1,0 +1,4 @@
+config.json
+/old_scripts
+.vscode
+__pycache__
