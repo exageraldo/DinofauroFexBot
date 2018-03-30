@@ -2,6 +2,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Callb
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 import logging
 
+from .translate import translate
 from .messages import MESSAGE
 from . import config
 
@@ -26,9 +27,10 @@ def help(bot, update):
         MESSAGE['BR']['help'], reply_markup=keyboard)
 
 
-def echo(bot, update):
-    """Echo the user message."""
-    update.message.reply_text(update.message.text)
+def translation(bot, update):
+    """Translate the user message to 'dinosaurese'."""
+    text_translated = translate(update.message.text)
+    update.message.reply_text(text_translated)
 
 
 def update_keyboard(message):
@@ -57,9 +59,9 @@ def run_bot():
     updater = Updater(config['TELEGRAM_TOKEN'])
     dp = updater.dispatcher
 
+    dp.add_handler(CommandHandler("translate", translation))
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help))
-    dp.add_handler(MessageHandler(Filters.text, echo))
     dp.add_handler(CallbackQueryHandler(button))
 
     dp.add_error_handler(error)
