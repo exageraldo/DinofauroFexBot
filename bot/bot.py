@@ -32,6 +32,13 @@ def help(bot, update):
         MESSAGE['BR']['help'], reply_markup=keyboard)
 
 
+def about(bot, update):
+    """Send a message when the command /about is issued."""
+    keyboard = update_keyboard('about')
+    update.message.reply_text(
+        MESSAGE['BR']['about'], reply_markup=keyboard)
+
+
 def translation(bot, update):
     """Translate the user message to 'dinosaurese'."""
     text_translated = translate(update.message.text)
@@ -95,6 +102,7 @@ def run_bot():
 
     dp.add_handler(CommandHandler("translate", translation))
     dp.add_handler(CommandHandler("start", start))
+    dp.add_handler(CommandHandler("about", about))
     dp.add_handler(CommandHandler("help", help))
 
     dp.add_handler(CallbackQueryHandler(button))
