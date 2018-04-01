@@ -57,8 +57,8 @@ def button(bot, update):
 def inlinequery(bot, update):
     """Handle the inline query."""
     query = update.inline_query.query
-    one_f = translate(query, remove=False)
-    more_f = translate(query, remove=True)
+    one_f = translate(query, remove=True)
+    more_f = translate(query, remove=False)
     if one_f == more_f:
         results = [
             InlineQueryResultArticle(
