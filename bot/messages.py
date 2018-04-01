@@ -18,7 +18,7 @@ MESSAGE = {
             "com F's repetidos (+F) ou com um único F (1F ou F), e ele enviará "
             "a mensagem 'traduzida'.\n"
             "Modo 'echo': Ao enviar uma mensagem para o bot, que não seja um "
-            "comando (palavra que não comece com '\') ele retornará a mensagem "
+            "comando (palavra que não comece com '\\') ele retornará a mensagem "
             "'traduzida'."
             ),
         "about": (
@@ -45,7 +45,7 @@ MESSAGE = {
             "choose if you want repeated F's (+F) or single F "
             "(1F or F), and it will send the message 'translated'.\n"
             "Echo mode: When sending a message to the bot, other "
-            "than a command (words beginning with \), it returns "
+            "than a command (words beginning with '\\'), it returns "
             "the 'translated' message."
             ),
         "about": (
