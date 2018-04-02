@@ -41,8 +41,13 @@ def about(bot, update):
 
 def translation(bot, update):
     """Translate the user message to 'dinosaurese'."""
-    text_translated = translate(update.message.text)
-    update.message.reply_text(text_translated)
+    one_f = translate(update.message.text)
+    more_f = translate(update.message.text, remove=False)
+    if one_f == more_f:
+        update.message.reply_text(one_f)
+    else:
+        message = f"1F:\n{one_f}\n\n+F:\n{more_f}"
+        update.message.reply_text(message)
 
 
 def update_keyboard(message):
