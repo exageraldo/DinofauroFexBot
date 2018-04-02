@@ -20,36 +20,42 @@ logger = logging.getLogger(__name__)
 
 def start(bot, update):
     """Send a message when the command /start is issued."""
-    keyboard = update_keyboard('start')
+    keyboard = language_keyboard('start')
     update.message.reply_text(
         MESSAGE['BR']['start'], reply_markup=keyboard)
 
 
 def help(bot, update):
     """Send a message when the command /help is issued."""
-    keyboard = update_keyboard('help')
+    keyboard = language_keyboard('help')
     update.message.reply_text(
         MESSAGE['BR']['help'], reply_markup=keyboard)
 
 
 def about(bot, update):
     """Send a message when the command /about is issued."""
-    keyboard = update_keyboard('about')
+    keyboard = language_keyboard('about')
     update.message.reply_text(
         MESSAGE['BR']['about'], reply_markup=keyboard)
 
 
 def translation(bot, update):
     """Translate the user message to 'dinosaurese'."""
-    text_translated = translate(update.message.text)
-    update.message.reply_text(text_translated)
+    one_f = translate(update.message.text)
+    more_f = translate(update.message.text, remove=False)
+    if one_f == more_f:
+        update.message.reply_text(
+            one_f, reply_to_message_id=update.message.message_id)
+    else:
+        message = f"1F:\n{one_f}\n\n+F:\n{more_f}"
+        update.message.reply_text(
+            message, reply_to_message_id=update.message.message_id)
 
 
-def update_keyboard(message):
-    lang_keyboard = [[InlineKeyboardButton("🇧🇷", callback_data=f'BR/{message}'),
-                      InlineKeyboardButton("🇺🇸", callback_data=f'EN/{message}')]]
-    reply_keyboard = InlineKeyboardMarkup(lang_keyboard)
-    return reply_keyboard
+def language_keyboard(message):
+    keyboard = [[InlineKeyboardButton("🇧🇷", callback_data=f'BR/{message}'),
+                 InlineKeyboardButton("🇺🇸", callback_data=f'EN/{message}')]]
+    return InlineKeyboardMarkup(keyboard)
 
 
 def button(bot, update):
@@ -58,7 +64,7 @@ def button(bot, update):
     bot.edit_message_text(text=MESSAGE[language][message],
                           chat_id=query.message.chat_id,
                           message_id=query.message.message_id,
-                          reply_markup=update_keyboard(message))
+                          reply_markup=language_keyboard(message))
 
 
 def inlinequery(bot, update):
@@ -100,7 +106,6 @@ def run_bot():
     updater = Updater(config['TELEGRAM_TOKEN'])
     dp = updater.dispatcher
 
-    dp.add_handler(CommandHandler("translate", translation))
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("about", about))
     dp.add_handler(CommandHandler("help", help))
