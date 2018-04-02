@@ -1,0 +1,2 @@
+ujson==1.35
+python_telegram_bot==10.0.1
