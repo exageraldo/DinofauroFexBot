@@ -44,10 +44,12 @@ def translation(bot, update):
     one_f = translate(update.message.text)
     more_f = translate(update.message.text, remove=False)
     if one_f == more_f:
-        update.message.reply_text(one_f)
+        update.message.reply_text(
+            one_f, reply_to_message_id=update.message.message_id)
     else:
         message = f"1F:\n{one_f}\n\n+F:\n{more_f}"
-        update.message.reply_text(message)
+        update.message.reply_text(
+            message, reply_to_message_id=update.message.message_id)
 
 
 def update_keyboard(message):
