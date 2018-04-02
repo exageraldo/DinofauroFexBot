@@ -100,7 +100,6 @@ def run_bot():
     updater = Updater(config['TELEGRAM_TOKEN'])
     dp = updater.dispatcher
 
-    dp.add_handler(CommandHandler("translate", translation))
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("about", about))
     dp.add_handler(CommandHandler("help", help))
