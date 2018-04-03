@@ -11,6 +11,8 @@ from .translate import translate
 from .messages import MESSAGE
 from . import config
 
+from .libs.decorators import inline_counter, echo_counter
+
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
@@ -70,29 +72,30 @@ def button(bot, update):
 def inlinequery(bot, update):
     """Handle the inline query."""
     query = update.inline_query.query
-    one_f = translate(query, remove=True)
-    more_f = translate(query, remove=False)
-    if one_f == more_f:
-        results = [
-            InlineQueryResultArticle(
-                id=uuid4(),
-                title="F",
-                input_message_content=InputTextMessageContent(
-                    one_f))]
-    else:
-        results = [
-            InlineQueryResultArticle(
-                id=uuid4(),
-                title="1F",
-                input_message_content=InputTextMessageContent(
-                    one_f)),
-            InlineQueryResultArticle(
-                id=uuid4(),
-                title=f"+F",
-                input_message_content=InputTextMessageContent(
-                    more_f))]
+    if query:
+        one_f = translate(query, remove=True)
+        more_f = translate(query, remove=False)
+        if one_f == more_f:
+            results = [
+                InlineQueryResultArticle(
+                    id=uuid4(),
+                    title="F",
+                    input_message_content=InputTextMessageContent(
+                        one_f))]
+        else:
+            results = [
+                InlineQueryResultArticle(
+                    id=uuid4(),
+                    title="1F",
+                    input_message_content=InputTextMessageContent(
+                        one_f)),
+                InlineQueryResultArticle(
+                    id=uuid4(),
+                    title=f"+F",
+                    input_message_content=InputTextMessageContent(
+                        more_f))]
 
-    update.inline_query.answer(results)
+        update.inline_query.answer(results)
 
 
 def error(bot, update, error):
