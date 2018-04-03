@@ -17,3 +17,11 @@ def echo_counter(function):
         function(bot, update)
         user.echo_user(update.message.from_user.id)
     return func_wrapper
+
+def command_counter(command):
+    def decorator(function):
+        def func_wrapper(bot, update):
+            function(bot, update)
+            user.command_user(update.message.from_user.id, command)
+        return func_wrapper
+    return decorator

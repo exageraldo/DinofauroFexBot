@@ -11,7 +11,7 @@ from .translate import translate
 from .messages import MESSAGE
 from . import config
 
-from .libs.decorators import inline_counter, echo_counter
+from .libs.decorators import inline_counter, echo_counter, command_counter
 
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -20,6 +20,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 
+@command_counter("start")
 def start(bot, update):
     """Send a message when the command /start is issued."""
     keyboard = language_keyboard('start')
@@ -27,6 +28,7 @@ def start(bot, update):
         MESSAGE['BR']['start'], reply_markup=keyboard)
 
 
+@command_counter("help")
 def help(bot, update):
     """Send a message when the command /help is issued."""
     keyboard = language_keyboard('help')
@@ -34,6 +36,7 @@ def help(bot, update):
         MESSAGE['BR']['help'], reply_markup=keyboard)
 
 
+@command_counter("about")
 def about(bot, update):
     """Send a message when the command /about is issued."""
     keyboard = language_keyboard('about')

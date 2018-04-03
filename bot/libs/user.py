@@ -9,10 +9,15 @@ class User(MongoClient):
 
     def inline_user(self, user_id):
         self.users_collection.update_one(
-                {"_id": user_id}, {"$inc": 
-                    {"usage.inline": 1, "usage.total": 1}}, upsert=True)
+            {"_id": user_id}, {"$inc": 
+                {"usage.inline": 1, "usage.total": 1}}, upsert=True)
 
     def echo_user(self, user_id):
         self.users_collection.update_one(
-                {"_id": user_id}, {"$inc": 
-                    {"usage.echo": 1, "usage.total": 1}}, upsert=True)
+            {"_id": user_id}, {"$inc": 
+                {"usage.echo": 1, "usage.total": 1}}, upsert=True)
+
+    def command_user(self, user_id, command):
+        self.users_collection.update_one(
+            {"_id": user_id}, {"$inc":
+                {f"commands.{command}": 1, "commands.total": 1}}, upsert=True)
