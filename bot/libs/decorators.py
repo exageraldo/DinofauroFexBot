@@ -7,7 +7,8 @@ user = User(**config.get("mongo", {}))
 def inline_counter(function):
     def func_wrapper(bot, update):
         function(bot, update)
-        user.inline_user(update.message.from_user.id)
+        if update.inline_query.query:
+            user.inline_user(update.inline_query.from_user['id'])
     return func_wrapper
 
 
