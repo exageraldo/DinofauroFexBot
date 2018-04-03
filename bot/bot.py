@@ -111,7 +111,7 @@ def error(bot, update, error):
 def run_bot():
     """Start the bot."""
 
-    updater = Updater(config['TELEGRAM_TOKEN'])
+    updater = Updater(config['telegram']['token'])
     dp = updater.dispatcher
 
     dp.add_handler(CommandHandler("start", start))
