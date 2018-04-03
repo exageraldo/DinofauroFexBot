@@ -4,9 +4,15 @@ from datetime import datetime
 
 user = User(**config.get("mongo", {}))
 
-def decorator(function):
-    def func_wrapper(*args, **kwds):
-        print(f"Starts: {datetime.now()}")
-        function(*args, **kwds)
-        print(f"Ends: {datetime.now()}")
+def inline_counter(function):
+    def func_wrapper(bot, update):
+        function(bot, update)
+        user.inline_user(update.message.from_user.id)
+    return func_wrapper
+
+
+def echo_counter(function):
+    def func_wrapper(bot, update):
+        function(bot, update)
+        user.echo_user(update.message.from_user.id)
     return func_wrapper
