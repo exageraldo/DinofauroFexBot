@@ -41,6 +41,7 @@ def about(bot, update):
         MESSAGE['BR']['about'], reply_markup=keyboard)
 
 
+@echo_counter
 def translation(bot, update):
     """Translate the user message to 'dinosaurese'."""
     one_f = translate(update.message.text)
@@ -69,6 +70,7 @@ def button(bot, update):
                           reply_markup=language_keyboard(message))
 
 
+@inline_counter
 def inlinequery(bot, update):
     """Handle the inline query."""
     query = update.inline_query.query
