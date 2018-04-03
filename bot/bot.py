@@ -11,6 +11,8 @@ from .translate import translate
 from .messages import MESSAGE
 from . import config
 
+from .libs.decorators import inline_counter, echo_counter, command_counter
+
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
@@ -18,6 +20,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 
 
+@command_counter("start")
 def start(bot, update):
     """Send a message when the command /start is issued."""
     keyboard = language_keyboard('start')
@@ -25,6 +28,7 @@ def start(bot, update):
         MESSAGE['BR']['start'], reply_markup=keyboard)
 
 
+@command_counter("help")
 def help(bot, update):
     """Send a message when the command /help is issued."""
     keyboard = language_keyboard('help')
@@ -32,6 +36,7 @@ def help(bot, update):
         MESSAGE['BR']['help'], reply_markup=keyboard)
 
 
+@command_counter("about")
 def about(bot, update):
     """Send a message when the command /about is issued."""
     keyboard = language_keyboard('about')
@@ -39,6 +44,7 @@ def about(bot, update):
         MESSAGE['BR']['about'], reply_markup=keyboard)
 
 
+@echo_counter
 def translation(bot, update):
     """Translate the user message to 'dinosaurese'."""
     one_f = translate(update.message.text)
@@ -67,32 +73,34 @@ def button(bot, update):
                           reply_markup=language_keyboard(message))
 
 
+@inline_counter
 def inlinequery(bot, update):
     """Handle the inline query."""
     query = update.inline_query.query
-    one_f = translate(query, remove=True)
-    more_f = translate(query, remove=False)
-    if one_f == more_f:
-        results = [
-            InlineQueryResultArticle(
-                id=uuid4(),
-                title="F",
-                input_message_content=InputTextMessageContent(
-                    one_f))]
-    else:
-        results = [
-            InlineQueryResultArticle(
-                id=uuid4(),
-                title="1F",
-                input_message_content=InputTextMessageContent(
-                    one_f)),
-            InlineQueryResultArticle(
-                id=uuid4(),
-                title=f"+F",
-                input_message_content=InputTextMessageContent(
-                    more_f))]
+    if query:
+        one_f = translate(query, remove=True)
+        more_f = translate(query, remove=False)
+        if one_f == more_f:
+            results = [
+                InlineQueryResultArticle(
+                    id=uuid4(),
+                    title="F",
+                    input_message_content=InputTextMessageContent(
+                        one_f))]
+        else:
+            results = [
+                InlineQueryResultArticle(
+                    id=uuid4(),
+                    title="1F",
+                    input_message_content=InputTextMessageContent(
+                        one_f)),
+                InlineQueryResultArticle(
+                    id=uuid4(),
+                    title=f"+F",
+                    input_message_content=InputTextMessageContent(
+                        more_f))]
 
-    update.inline_query.answer(results)
+        update.inline_query.answer(results)
 
 
 def error(bot, update, error):
@@ -103,7 +111,7 @@ def error(bot, update, error):
 def run_bot():
     """Start the bot."""
 
-    updater = Updater(config['TELEGRAM_TOKEN'])
+    updater = Updater(config['telegram']['token'])
     dp = updater.dispatcher
 
     dp.add_handler(CommandHandler("start", start))
