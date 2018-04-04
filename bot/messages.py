@@ -4,7 +4,7 @@ MESSAGE = {
             "Bem vindo ao Dinofauro Fex Bot!\n"
             "Digite alguma mensagem para mim que eu enviarei as 'tradufõef' "
             "ou, se preferir, me chama no inline usando:\n"
-            "@DinofauroFexBot sua mensagem aqui!"
+            "@DinofauroFexBot sua mensagem aqui!\n"
             "Se precisar de alguma ajuda, só chamar o comando /help."
             ),
         "help": (
@@ -33,7 +33,7 @@ MESSAGE = {
             "Welcome to Dinofauro Fex Bot!\n"
             "Type some message for me that I will send you the 'tranflationf' "
             "or if you prefer, call me using the inline mode:\n"
-            "@DinofauroFexBot Your message here!"
+            "@DinofauroFexBot Your message here!\n"
             "If you need any help, just call the /help command."
             ),
         "help": (
