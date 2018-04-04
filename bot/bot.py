@@ -6,7 +6,9 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, \
 from uuid import uuid4
 
 import logging
+from random import randint
 
+from .libs.ipsum_gen import ipsum_generator
 from .translate import translate
 from .messages import MESSAGE
 from . import config
@@ -43,6 +45,11 @@ def about(bot, update):
     update.message.reply_text(
         MESSAGE['BR']['about'], reply_markup=keyboard)
 
+
+@command_counter("ipsum")
+def ipsum(bot, update):
+    update.message.reply_text(
+        translate(ipsum_generator(randint(1, 6))))
 
 @echo_counter
 def translation(bot, update):
@@ -117,6 +124,7 @@ def run_bot():
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("about", about))
     dp.add_handler(CommandHandler("help", help))
+    dp.add_handler(CommandHandler("ipsum", ipsum))
 
     dp.add_handler(CallbackQueryHandler(button))
 
