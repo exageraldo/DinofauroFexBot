@@ -2,8 +2,9 @@ MESSAGE = {
     "BR":{
         "start": (
             "Bem vindo ao Dinofauro Fex Bot!\n"
-            "Essa é a primeira versão teste do bot (v0.1.0). "
-            "Caso tenha algum feedback, mande para os desenvolvedores (/about). "
+            "Digite alguma mensagem para mim que eu enviarei as 'tradufõef' "
+            "ou, se preferir, me chama no inline usando:\n"
+            "@DinofauroFexBot sua mensagem aqui!"
             "Se precisar de alguma ajuda, só chamar o comando /help."
             ),
         "help": (
@@ -22,16 +23,18 @@ MESSAGE = {
             "'traduzida'."
             ),
         "about": (
-            "Esse bot é mantido por @exaGeraldo e @j_monte."
+            "Essa é a primeira versão teste do bot (v0.2.0). "
+            "Caso tenha algum feedback, mande para os desenvolvedores:\n"
+            "@exaGeraldo e @j_monte."
             )
     },
     "EN":{
         "start": (
             "Welcome to Dinofauro Fex Bot!\n"
-            "This is the first test version of the bot (v0.1.0). "
-            "If you want to send us some feedback, please send it "
-            "to the developers (/about). If you need any help, just "
-            "call the /help command."
+            "Type some message for me that I will send you the 'tranflationf' "
+            "or if you prefer, call me using the inline mode:\n"
+            "@DinofauroFexBot Your message here!"
+            "If you need any help, just call the /help command."
             ),
         "help": (
             "Do you need help?\n"
@@ -49,7 +52,9 @@ MESSAGE = {
             "the 'translated' message."
             ),
         "about": (
-            "This bot is maintained by @exaGeraldo and @j_monte."
+            "This is the first test version of the bot (v0.2.0). "
+            "If you want to send us some feedback, please do it:\n"
+            "@exaGeraldo and @j_monte."
             )
     }
 }
