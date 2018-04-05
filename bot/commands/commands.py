@@ -9,7 +9,7 @@ from .. import config
 
 from .libs.decorators import echo_counter, command_counter
 
-from .button import language_keyboard, ipsum_keyboard
+from .keyboards import language_keyboard, ipsum_keyboard
 
 
 @command_counter("start")

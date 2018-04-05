@@ -3,6 +3,7 @@ from random import randint
 from .libs.ipsum_gen import ipsum_generator
 from .libs.translate import translate
 from .libs.messages import MESSAGE
+from .keyboards import ipsum_keyboard, language_keyboard
 
 def button(bot, update):
     query = update.callback_query
