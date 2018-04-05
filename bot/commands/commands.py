@@ -1,19 +1,16 @@
-from telegram.utils.helpers import escape_markdown
-from telegram.ext import Updater, CommandHandler, MessageHandler, \
-    Filters, CallbackQueryHandler, InlineQueryHandler
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, \
-    InlineQueryResultArticle, ParseMode, InputTextMessageContent
+    InlineQueryResultArticle, InputTextMessageContent
 from uuid import uuid4
 
 import logging
 from random import randint
 
-from .libs.ipsum_gen import ipsum_generator
-from .translate import translate
-from .messages import MESSAGE
-from . import config
+from ..libs.ipsum_gen import ipsum_generator
+from ..translate import translate
+from ..messages import MESSAGE
+from .. import config
 
-from .libs.decorators import inline_counter, echo_counter, command_counter
+from ..libs.decorators import inline_counter, echo_counter, command_counter
 
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
