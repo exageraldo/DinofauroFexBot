@@ -19,7 +19,8 @@ def remove_repeated(text):
 
 def translate(text, remove=True):
     for letter in CHANGE_LETTERS:
-        text = text.replace(letter, CHANGE_LETTERS[letter])
+        if letter in text:
+            text = text.replace(letter, CHANGE_LETTERS[letter])
     if remove:
         text = remove_repeated(text)
     return text
