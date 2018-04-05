@@ -6,8 +6,8 @@ import logging
 from random import randint
 
 from .libs.ipsum_gen import ipsum_generator
-from ..translate import translate
-from ..messages import MESSAGE
+from .libs.translate import translate
+from .libs.messages import MESSAGE
 from .. import config
 
 from .libs.decorators import inline_counter, echo_counter, command_counter
