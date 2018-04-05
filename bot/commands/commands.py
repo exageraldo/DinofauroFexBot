@@ -1,6 +1,5 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 
-import logging
 from random import randint
 
 from .libs.ipsum_gen import ipsum_generator
@@ -9,12 +8,6 @@ from .libs.messages import MESSAGE
 from .. import config
 
 from .libs.decorators import echo_counter, command_counter
-
-
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    level=logging.INFO)
-
-logger = logging.getLogger(__name__)
 
 
 @command_counter("start")
@@ -86,12 +79,3 @@ def button(bot, update):
                               chat_id=query.message.chat_id,
                               message_id=query.message.message_id,
                               reply_markup=language_keyboard(message))
-
-
-def error(bot, update, error):
-    """Log Errors caused by Updates."""
-    if error.message == "Message is not modified":
-        bot.answer_callback_query(
-            update.callback_query.id, text="Couldn't load messages")
-    else:
-        logger.warning('Update "%s" caused error "%s"', update, error)
