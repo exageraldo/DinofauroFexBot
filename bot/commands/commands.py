@@ -9,13 +9,13 @@ from .. import config
 
 from .libs.decorators import echo_counter, command_counter
 
-from .button import language_keyboard, ipsum_keyboard
+from .keyboards import language_keyboard, ipsum_keyboard
 
 
 @command_counter("start")
 def start(bot, update):
     """Send a message when the command /start is issued."""
-    keyboard = language_keyboard('start')
+    keyboard = language_keyboard('BR', 'start')
     update.message.reply_text(
         MESSAGE['BR']['start'], reply_markup=keyboard)
 
@@ -23,7 +23,7 @@ def start(bot, update):
 @command_counter("help")
 def help(bot, update):
     """Send a message when the command /help is issued."""
-    keyboard = language_keyboard('help')
+    keyboard = language_keyboard('BR', 'help')
     update.message.reply_text(
         MESSAGE['BR']['help'], reply_markup=keyboard)
 
@@ -31,7 +31,7 @@ def help(bot, update):
 @command_counter("about")
 def about(bot, update):
     """Send a message when the command /about is issued."""
-    keyboard = language_keyboard('about')
+    keyboard = language_keyboard('BR', 'about')
     update.message.reply_text(
         MESSAGE['BR']['about'], reply_markup=keyboard)
 
