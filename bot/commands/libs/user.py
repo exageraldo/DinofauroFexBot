@@ -1,5 +1,6 @@
 from pymongo import MongoClient
-
+import time
+from datetime import datetime
 
 class User(MongoClient):
     def __init__(self, *args, **kwargs):
@@ -21,3 +22,10 @@ class User(MongoClient):
         self.users_collection.update_one(
             {"_id": user_id}, {"$inc":
                 {f"commands.{command}": 1, "commands.total": 1}}, upsert=True)
+
+    def feedback_user(self, user_id, stars):
+        current_date = time.strftime('%m')
+        self.users_collection.update_one(
+            {"_id": user_id}, 
+            {"$set": 
+                {f"feedback.{current_date}": {"stars": int(stars), "date": datetime.now()}}}, upsert=True)
