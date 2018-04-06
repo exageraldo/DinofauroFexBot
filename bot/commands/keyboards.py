@@ -17,3 +17,12 @@ def ipsum_keyboard():
     keyboard = [[InlineKeyboardButton(
         'Lorem Ipfum', callback_data=f'ipsum|{randint(1, 6)}')]]
     return InlineKeyboardMarkup(keyboard)
+
+
+def feedback_keyboard():
+    keyboard = [[InlineKeyboardButton('⭐️', callback_data='feedback|1'),
+                 InlineKeyboardButton('⭐️⭐️', callback_data='feedback|2')],
+                [InlineKeyboardButton('⭐️⭐️⭐️', callback_data='feedback|3'),
+                 InlineKeyboardButton('⭐️⭐️⭐️⭐️', callback_data='feedback|4')],
+                [InlineKeyboardButton('⭐️⭐️⭐️⭐️⭐️', callback_data='feedback|5')]]
+    return InlineKeyboardMarkup(keyboard)
