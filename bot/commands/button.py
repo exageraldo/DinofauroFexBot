@@ -23,17 +23,36 @@ def change_language(bot, update, parameters):
                           message_id=query.message.message_id,
                           reply_markup=language_keyboard(language, message))
 
+
+def feedback(bot, update, parameters):
+    stars = int(parameters[1])
+    if not stars:
+        feedback_language(bot, update, parameters)
+    else:
+        thanks_feedback(bot, update, parameters)
+
+
+def feedback_language(bot, update, parameters):
+    query = update.callback_query
+    language, stars = parameters
+    bot.edit_message_text(text=MESSAGE[language]['feedback'],
+                          chat_id=query.message.chat_id,
+                          message_id=query.message.message_id, 
+                          reply_markup=feedback_keyboard(language))
+
+
 def thanks_feedback(bot, update, parameters):
     query = update.callback_query
-    stars = parameters[0]
-    bot.edit_message_text(text=f"Obrigado pelas {stars} feedback!",
+    language, stars = parameters
+    bot.edit_message_text(text=MESSAGE[language]['thanks_feedback'],
                           chat_id=query.message.chat_id,
-                          message_id=query.message.message_id)
+                          message_id=query.message.message_id, 
+                          reply_markup=language_keyboard(language, 'thanks_feedback'))
 
 KEYBOARD = {
     'language': change_language,
     'ipsum': random_ipsum,
-    'feedback': thanks_feedback
+    'feedback': feedback
 }
 
 def button(bot, update):
