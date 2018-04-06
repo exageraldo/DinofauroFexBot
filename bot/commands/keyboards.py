@@ -14,5 +14,6 @@ def language_keyboard(language, message):
 
 
 def ipsum_keyboard():
-    keyboard = [[InlineKeyboardButton('Lorem Ipfum', callback_data='ipsum')]]
+    keyboard = [[InlineKeyboardButton(
+        'Lorem Ipfum', callback_data=f'ipsum|{randint(1, 6)}')]]
     return InlineKeyboardMarkup(keyboard)
