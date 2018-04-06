@@ -35,6 +35,9 @@ MESSAGE = {
         ),
         "thanks_feedback": (
             "Obrigado pelo feedback!"
+        ),
+        "warning_feedback": (
+            "Nós já recebemos seu feedback esse mês! <3"
         )
     },
     "EN":{
@@ -73,6 +76,9 @@ MESSAGE = {
         ),
         "thanks_feedback": (
             "Thanks for the feedback!"
+        ),
+        "warning_feedback": (
+            "We already received your feedback this month"
         )
     }
 }
