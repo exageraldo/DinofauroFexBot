@@ -6,7 +6,7 @@ from .libs.messages import MESSAGE
 from .keyboards import ipsum_keyboard, language_keyboard
 
 
-def change_language(bot, update, parameters):
+def random_ipsum(bot, update, parameters):
     query = update.callback_query
     bot.edit_message_text(text=translate(ipsum_generator(randint(1, 6))),
                           chat_id=query.message.chat_id,
@@ -14,7 +14,7 @@ def change_language(bot, update, parameters):
                           reply_markup=ipsum_keyboard())
 
 
-def random_ipsum(bot, update, parameters):
+def change_language(bot, update, parameters):
     query = update.callback_query
     language, message = parameters
     bot.edit_message_text(text=MESSAGE[language][message],
