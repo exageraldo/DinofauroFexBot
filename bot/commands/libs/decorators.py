@@ -1,4 +1,4 @@
-from .. import config
+from ... import config
 from .user import User
 from datetime import datetime
 
