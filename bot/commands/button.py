@@ -32,4 +32,4 @@ KEYBOARD = {
 def button(bot, update):
     query = update.callback_query
     function, *parameters = query.data.split("|")
-    KEYBOARD[function](update, bot, parameters)
+    KEYBOARD[function](bot, update, parameters)
