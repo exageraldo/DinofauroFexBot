@@ -5,6 +5,7 @@ CHANGE_LETTERS = {
 }
 
 
+
 def remove_repeated(text):
     while text != text.replace('ff', 'f'):
         text = text.replace('ff', 'f')
