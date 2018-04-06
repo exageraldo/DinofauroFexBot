@@ -3,7 +3,7 @@ from telegram.ext import (Updater, CommandHandler, MessageHandler,
 
 from . import config
 
-from .commands.commands import (start, help, about, ipsum, translation)
+from .commands.commands import (start, help, about, ipsum, translation, feedback)
 from .commands.inline import inlinequery
 from .commands.button import button
 from .commands.error import error
@@ -19,6 +19,7 @@ def run_bot():
     dp.add_handler(CommandHandler("about", about))
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("ipsum", ipsum))
+    dp.add_handler(CommandHandler("feedback", feedback))
 
     dp.add_handler(CallbackQueryHandler(button))
 
