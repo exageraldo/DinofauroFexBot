@@ -58,5 +58,6 @@ def translation(bot, update):
 
 
 def feedback(bot, update):
-    keyboard = feedback_keyboard()
-    update.message.reply_text("Sua opinião é muito importante para nós!\nQuantas estrelas esse bot merece?",reply_markup=keyboard)
+    keyboard = feedback_keyboard('BR')
+    update.message.reply_text(
+        MESSAGE['BR']['feedback'], reply_markup=keyboard)
