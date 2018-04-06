@@ -9,7 +9,7 @@ from .. import config
 
 from .libs.decorators import echo_counter, command_counter
 
-from .keyboards import language_keyboard, ipsum_keyboard
+from .keyboards import language_keyboard, ipsum_keyboard, feedback_keyboard
 
 
 @command_counter("start")
@@ -55,3 +55,8 @@ def translation(bot, update):
         message = f"1F:\n{one_f}\n\n+F:\n{more_f}"
         update.message.reply_text(
             message, reply_to_message_id=update.message.message_id)
+
+
+def feedback(bot, update):
+    keyboard = feedback_keyboard()
+    update.message.reply_text("Sua opinião é muito importante para nós!\nQuantas estrelas esse bot merece?",reply_markup=keyboard)
