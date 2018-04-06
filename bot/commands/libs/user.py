@@ -25,7 +25,14 @@ class User(MongoClient):
 
     def feedback_user(self, user_id, stars):
         current_date = time.strftime('%m')
+        find_fb = self.users_collection.find_one(
+            {"_id": 24225774}, {"feedback": 1, "_id": 0})
+        if find_fb:
+            for fb_date in find_fb:
+                if fb_date == str(current_date):
+                    return False
         self.users_collection.update_one(
             {"_id": user_id}, 
             {"$set": 
                 {f"feedback.{current_date}": {"stars": int(stars), "date": datetime.now()}}}, upsert=True)
+        return True
