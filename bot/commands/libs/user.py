@@ -27,10 +27,8 @@ class User(MongoClient):
         current_date = time.strftime('%m')
         find_fb = self.users_collection.find_one(
             {"_id": user_id}, {"feedback": 1, "_id": 0})
-        if find_fb:
-            for fb_date in find_fb:
-                if fb_date == str(current_date):
-                    return False
+        if find_fb and find_fb.get(current_date):
+            return False
         self.users_collection.update_one(
             {"_id": user_id}, 
             {"$set": 
