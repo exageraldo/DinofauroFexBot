@@ -27,7 +27,7 @@ class User(MongoClient):
         current_date = time.strftime('%m')
         find_fb = self.users_collection.find_one(
             {"_id": user_id}, {"feedback": 1, "_id": 0})
-        if find_fb and find_fb.get(current_date):
+        if find_fb and find_fb['feedback'].get(current_date):
             return True
         return False
 
