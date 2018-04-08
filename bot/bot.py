@@ -1,130 +1,12 @@
-from telegram.utils.helpers import escape_markdown
-from telegram.ext import Updater, CommandHandler, MessageHandler, \
-    Filters, CallbackQueryHandler, InlineQueryHandler
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, \
-    InlineQueryResultArticle, ParseMode, InputTextMessageContent
-from uuid import uuid4
+from telegram.ext import (Updater, CommandHandler, MessageHandler,
+                          Filters, CallbackQueryHandler, InlineQueryHandler)
 
-import logging
-from random import randint
-
-from .libs.ipsum_gen import ipsum_generator
-from .translate import translate
-from .messages import MESSAGE
 from . import config
 
-from .libs.decorators import inline_counter, echo_counter, command_counter
-
-
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                    level=logging.INFO)
-
-logger = logging.getLogger(__name__)
-
-
-@command_counter("start")
-def start(bot, update):
-    """Send a message when the command /start is issued."""
-    keyboard = language_keyboard('start')
-    update.message.reply_text(
-        MESSAGE['BR']['start'], reply_markup=keyboard)
-
-
-@command_counter("help")
-def help(bot, update):
-    """Send a message when the command /help is issued."""
-    keyboard = language_keyboard('help')
-    update.message.reply_text(
-        MESSAGE['BR']['help'], reply_markup=keyboard)
-
-
-@command_counter("about")
-def about(bot, update):
-    """Send a message when the command /about is issued."""
-    keyboard = language_keyboard('about')
-    update.message.reply_text(
-        MESSAGE['BR']['about'], reply_markup=keyboard)
-
-
-@command_counter("ipsum")
-def ipsum(bot, update):
-    keyboard = ipsum_keyboard()
-    update.message.reply_text(
-        translate(ipsum_generator(randint(1, 6))), reply_markup=keyboard)
-
-@echo_counter
-def translation(bot, update):
-    """Translate the user message to 'dinosaurese'."""
-    one_f = translate(update.message.text)
-    more_f = translate(update.message.text, remove=False)
-    if one_f == more_f:
-        update.message.reply_text(
-            one_f, reply_to_message_id=update.message.message_id)
-    else:
-        message = f"1F:\n{one_f}\n\n+F:\n{more_f}"
-        update.message.reply_text(
-            message, reply_to_message_id=update.message.message_id)
-
-
-def language_keyboard(message):
-    keyboard = [[InlineKeyboardButton("🇧🇷", callback_data=f'BR/{message}'),
-                 InlineKeyboardButton("🇺🇸", callback_data=f'EN/{message}')]]
-    return InlineKeyboardMarkup(keyboard)
-
-
-def ipsum_keyboard():
-    keyboard = [[InlineKeyboardButton('Lorem Ipfum', callback_data='ipsum')]]
-    return InlineKeyboardMarkup(keyboard)
-
-
-def button(bot, update):
-    query = update.callback_query
-    if query.data == 'ipsum':
-        bot.edit_message_text(text=translate(ipsum_generator(randint(1, 6))),
-                            chat_id=query.message.chat_id,
-                            message_id=query.message.message_id,
-                            reply_markup=ipsum_keyboard())
-    else:
-        language, message = query.data.split("/")
-        bot.edit_message_text(text=MESSAGE[language][message],
-                        chat_id=query.message.chat_id,
-                        message_id=query.message.message_id,
-                        reply_markup=language_keyboard(message))
-
-
-@inline_counter
-def inlinequery(bot, update):
-    """Handle the inline query."""
-    query = update.inline_query.query
-    if query:
-        one_f = translate(query, remove=True)
-        more_f = translate(query, remove=False)
-        if one_f == more_f:
-            results = [
-                InlineQueryResultArticle(
-                    id=uuid4(),
-                    title="F",
-                    input_message_content=InputTextMessageContent(
-                        one_f))]
-        else:
-            results = [
-                InlineQueryResultArticle(
-                    id=uuid4(),
-                    title="1F",
-                    input_message_content=InputTextMessageContent(
-                        one_f)),
-                InlineQueryResultArticle(
-                    id=uuid4(),
-                    title=f"+F",
-                    input_message_content=InputTextMessageContent(
-                        more_f))]
-
-        update.inline_query.answer(results)
-
-
-def error(bot, update, error):
-    """Log Errors caused by Updates."""
-    logger.warning('Update "%s" caused error "%s"', update, error)
+from .commands.commands import (start, help, about, ipsum, translation, feedback)
+from .commands.inline import inlinequery
+from .commands.button import button
+from .commands.error import error
 
 
 def run_bot():
@@ -137,6 +19,7 @@ def run_bot():
     dp.add_handler(CommandHandler("about", about))
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("ipsum", ipsum))
+    dp.add_handler(CommandHandler("feedback", feedback))
 
     dp.add_handler(CallbackQueryHandler(button))
 

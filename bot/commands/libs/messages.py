@@ -28,7 +28,17 @@ MESSAGE = {
             "Essa é a primeira versão teste do bot (v0.2.0). "
             "Caso tenha algum feedback, mande para os desenvolvedores:\n"
             "@exaGeraldo e @j_monte."
-            )
+            ),
+        "feedback":(
+            "Sua opinião é muito importante para nós!\n"
+            "Quantas estrelas você acha que esse bot merece?"
+        ),
+        "thanks_feedback": (
+            "Obrigado pelo feedback!"
+        ),
+        "warning_feedback": (
+            "Nós já recebemos seu feedback esse mês! <3"
+        )
     },
     "EN":{
         "start": (
@@ -59,6 +69,16 @@ MESSAGE = {
             "This is the first test version of the bot (v0.2.0). "
             "If you want to send us some feedback, please do it:\n"
             "@exaGeraldo and @j_monte."
-            )
+            ),
+        "feedback": (
+            "Your opinion is very important to us!\n"
+            "How many stars do you think this bot deserves?"
+        ),
+        "thanks_feedback": (
+            "Thanks for the feedback!"
+        ),
+        "warning_feedback": (
+            "We already received your feedback this month"
+        )
     }
 }

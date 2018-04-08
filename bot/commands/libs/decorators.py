@@ -1,4 +1,4 @@
-from .. import config
+from ... import config
 from .user import User
 from datetime import datetime
 
@@ -15,13 +15,15 @@ def inline_counter(function):
 def echo_counter(function):
     def func_wrapper(bot, update):
         function(bot, update)
-        user.echo_user(update.message.from_user.id)
+        user_id = update.message.from_user.id
+        user.echo_user(user_id)
     return func_wrapper
 
 def command_counter(command):
     def decorator(function):
         def func_wrapper(bot, update):
             function(bot, update)
-            user.command_user(update.message.from_user.id, command)
+            user_id = update.message.from_user.id
+            user.command_user(user_id, command)
         return func_wrapper
     return decorator
