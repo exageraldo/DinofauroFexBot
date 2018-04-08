@@ -8,8 +8,10 @@ from .libs.messages import MESSAGE
 from .. import config
 
 from .libs.decorators import echo_counter, command_counter
+from .keyboards import language_keyboard, ipsum_keyboard, feedback_keyboard
+from .libs.user import User
 
-from .keyboards import language_keyboard, ipsum_keyboard
+user = User(**config.get("mongo", {}))
 
 
 @command_counter("start")
@@ -55,3 +57,15 @@ def translation(bot, update):
         message = f"1F:\n{one_f}\n\n+F:\n{more_f}"
         update.message.reply_text(
             message, reply_to_message_id=update.message.message_id)
+
+
+def feedback(bot, update):
+    user_id = update.message.from_user.id
+    if user.find_feedback(user_id):
+        keyboard = language_keyboard('BR', 'warning_feedback')
+        update.message.reply_text(
+            MESSAGE['BR']['warning_feedback'], reply_markup=keyboard)
+    else:
+        keyboard = feedback_keyboard('BR')
+        update.message.reply_text(
+            MESSAGE['BR']['feedback'], reply_markup=keyboard)
