@@ -1,3 +1,4 @@
 pymongo==3.6.1
-telegram==0.0.1
 ujson==1.35
+python_telegram_bot==10.0.1
+telegram==0.0.1
